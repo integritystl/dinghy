@@ -10,5 +10,12 @@
     "require": {
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.6"
-    }
+    },
+    "bin": [
+        "bin/docs/index.php",
+        "bin/docker-compose.yml",
+        "bin/Dockerfile",
+        "bin/phpdoc.xml",
+        "bin/phpunit.xml"
+    ]
 }
