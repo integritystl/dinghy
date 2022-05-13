@@ -1,0 +1,49 @@
+version: '3.4'
+services:
+  php:
+    &php
+    container_name: php
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/project:rw
+  phpdoc:
+    &phpdoc
+    container_name: phpdoc
+    image: phpdoc/phpdoc:latest
+    volumes:
+      - ./:/data:rw
+  generatephpdoc:
+    container_name: generatephpdoc
+    <<: *phpdoc
+    command: project:run --sourcecode
+  unittest:
+    <<: *php
+    container_name: unittest
+    command: composer unit-test-report
+  standardscheck:
+    <<: *php
+    container_name: standardscheck
+    command: composer standards-check
+  standardscheckreport:
+    <<: *php
+    container_name: standardscheck
+    command: composer standards-check-report
+  standardsfix:
+    <<: *php
+    container_name: standardscheck
+    command: composer standards-fix
+  docs:
+    container_name: docs
+    image: php:apache
+    depends_on:
+      - generatephpdoc
+      - unittest
+      - standardscheckreport
+    ports:
+      - 8088:80
+    volumes: 
+      - ./docs:/var/www/html:rw
+    profiles: ["docs"]
+  

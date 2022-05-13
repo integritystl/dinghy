@@ -1,0 +1,14 @@
+{
+    "name": "integrity/dinghy",
+    "description": "Docker files for running a basic php application development environment with testing, codelinting and documentation tools.",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Integrity\\Dinghy\\": "src/"
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "^3.6"
+    }
+}
